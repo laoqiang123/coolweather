@@ -4,10 +4,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.administrator.coolweather.Myapplication;
 import com.example.administrator.coolweather.model.City;
 import com.example.administrator.coolweather.model.County;
 import com.example.administrator.coolweather.model.Province;
+import com.example.administrator.coolweather.utils.Myapplication;
 
 import java.util.ArrayList;
 import java.util.List;
