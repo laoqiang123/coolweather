@@ -1,5 +1,6 @@
 package com.example.administrator.coolweather.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -50,6 +51,19 @@ public class WeatherActivity extends AppCompatActivity {
             queryWeatherCode(countycode);       
         }else{
             showWeather();
+        }
+    }
+    public void changecity(View v){
+        Intent intent = new Intent(Myapplication.getContext(),ChooseAreaActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    public void updateweather(View v){
+        tv_time.setText("同步中");
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Myapplication.getContext());
+        String weatherCode = sp.getString("weather_code",null);
+        if(!TextUtils.isEmpty(weatherCode)){
+            queryWeatherInfo(weatherCode);
         }
     }
 

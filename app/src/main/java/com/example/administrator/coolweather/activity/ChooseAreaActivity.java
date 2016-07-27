@@ -203,6 +203,7 @@ public class ChooseAreaActivity extends AppCompatActivity implements AdapterView
             Intent intent = new Intent(Myapplication.getContext(),WeatherActivity.class);
             intent.putExtra("county_code",selectedcounty.getCountyCode());
             startActivity(intent);
+            finish();
         }
     }
 
