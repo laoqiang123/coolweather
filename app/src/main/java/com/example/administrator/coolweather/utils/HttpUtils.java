@@ -3,6 +3,7 @@ package com.example.administrator.coolweather.utils;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,6 +27,7 @@ public class HttpUtils {
                     connection.setRequestMethod("GET");
                     connection.setReadTimeout(5000);
                     connection.setConnectTimeout(5000);
+                    connection.setRequestProperty("Accept-Encoding","");//服务器编码
                     StringBuilder responsse = new StringBuilder();
                     InputStream in = connection.getInputStream();
                     BufferedReader bf = new BufferedReader(new InputStreamReader(in));
@@ -40,7 +42,8 @@ public class HttpUtils {
 
                 } catch (MalformedURLException e) {
 
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
                 }
                 catch(Exception e){

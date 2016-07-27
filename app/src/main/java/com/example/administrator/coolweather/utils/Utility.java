@@ -1,5 +1,8 @@
 package com.example.administrator.coolweather.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -7,6 +10,12 @@ import com.example.administrator.coolweather.db.CoolWeatherDao;
 import com.example.administrator.coolweather.model.City;
 import com.example.administrator.coolweather.model.County;
 import com.example.administrator.coolweather.model.Province;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2016/7/26 0026.
@@ -68,6 +77,38 @@ public class Utility {
             return  true;
         }
   return false;
+    }
+    public static  void handleWeatherResponse(Context context,String response){
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONObject weatherinfo = jsonObject.getJSONObject("weatherinfo");
+            String cityName = weatherinfo.getString("city");
+            String weatherCode = weatherinfo.getString("cityid");
+            String temp1 = weatherinfo.getString("temp1");
+            String temp2 = weatherinfo.getString("temp2");
+            String weatherDesp = weatherinfo.getString("weather");
+            String publicTime = weatherinfo.getString("ptime");
+            saveWeatherInfo(cityName,weatherCode,temp1,temp2,weatherDesp,publicTime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    public static  void saveWeatherInfo(String cityName
+            ,String weatherCode, String temp1,String temp2,String weatherDesp,String publicTime ){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(Myapplication.getContext());
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("city_selected", true);
+        editor.putString("city_name", cityName);
+        editor.putString("weather_code", weatherCode);
+        editor.putString("temp1", temp1);
+        editor.putString("temp2", temp2);
+        editor.putString("weather_desp",weatherDesp);
+        editor.putString("public_time",publicTime);
+        SimpleDateFormat sdf =  new SimpleDateFormat("yyyy年M月d日");
+        editor.putString("current_date",sdf.format(new Date()));
+        editor.commit();
     }
 
 }

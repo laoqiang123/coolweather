@@ -1,6 +1,7 @@
 package com.example.administrator.coolweather.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import com.example.administrator.coolweather.model.County;
 import com.example.administrator.coolweather.model.Province;
 import com.example.administrator.coolweather.utils.HttpCallbackListener;
 import com.example.administrator.coolweather.utils.HttpUtils;
+import com.example.administrator.coolweather.utils.Myapplication;
 import com.example.administrator.coolweather.utils.Utility;
 
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class ChooseAreaActivity extends AppCompatActivity implements AdapterView
     private int currentlevel;
     private Province selectedprovince;
     private City selectedcity;
+    private County selectedcounty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +198,11 @@ public class ChooseAreaActivity extends AppCompatActivity implements AdapterView
             selectedcity = cityList.get(position);
             Log.d("tag","county");
             queryCounty();
+        }else if(currentlevel==LEVEL_COUNTY){
+            selectedcounty = countyList.get(position);
+            Intent intent = new Intent(Myapplication.getContext(),WeatherActivity.class);
+            intent.putExtra("county_code",selectedcounty.getCountyCode());
+            startActivity(intent);
         }
     }
 
