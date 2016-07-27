@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.administrator.coolweather.R;
+import com.example.administrator.coolweather.Service.AutoUpdateService;
 import com.example.administrator.coolweather.utils.HttpCallbackListener;
 import com.example.administrator.coolweather.utils.HttpUtils;
 import com.example.administrator.coolweather.utils.Myapplication;
@@ -125,7 +126,9 @@ public class WeatherActivity extends AppCompatActivity {
         tv_dete.setText(prefs.getString("current_date",null));
         tv_weather.setText(prefs.getString("weather_desp",null));
         tv_temper1.setText(prefs.getString("temp1",null));
-        tv_temper2.setText(prefs.getString("temp2",null));
+        tv_temper2.setText(prefs.getString("temp2", null));
         linear_weather.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(Myapplication.getContext(), AutoUpdateService.class);
+        startService(intent);
     }
 }
